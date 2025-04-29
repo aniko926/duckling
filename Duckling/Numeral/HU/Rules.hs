@@ -144,6 +144,25 @@ ruleCompositeTens = Rule
       _ -> Nothing
   }
 
+ruleDecimalWithUpTo3Digits :: Rule
+ruleDecimalWithUpTo3Digits = Rule
+  { name = "decimal with up to 3 digits after 'egész'"
+  , pattern =
+      [ numberBetween 0 100
+      , regex "egész"
+      , numberBetween 0 10
+      , optional (numberBetween 0 10)
+      , optional (numberBetween 0 10)
+      ]
+  , prod = \case
+      (Token Number intPart : _ : Token Number d1 : rest) ->
+        let digits = d1 : [t | Token Number t <- rest]
+            decimal = concatMap (show . floor . value) digits
+            full = show (floor (value intPart)) ++ "." ++ decimal
+        in Just . Token Number $ number (read full)
+      _ -> Nothing
+  }
+
 rules :: [Rule]
 rules =
   [ ruleNumeral
