@@ -27,6 +27,7 @@ import Duckling.Numeral.Types (NumeralData (..))
 import Duckling.Regex.Types
 import Duckling.Types
 import qualified Duckling.Numeral.Types as TNumeral
+import Duckling.Number.Helpers (double)
 
 ruleNumeralMap :: HashMap Text Integer
 ruleNumeralMap = HashMap.fromList
@@ -159,7 +160,7 @@ ruleDecimalWithUpTo3Digits = Rule
         let digits = d1 : [t | Token Numeral t <- rest]
             decimal = concatMap (show . floor . TNumeral.value) digits
             full = show (floor (TNumeral.value intPart)) ++ "." ++ decimal
-        in Just . Token Numeral $ number (read full)
+        in Just . Token Numeral $ double fullVal
       _ -> Nothing
   }
 
