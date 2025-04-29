@@ -22,12 +22,11 @@ import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Text as Text
 
 import Duckling.Dimensions.Types
-import Duckling.Numeral.Helpers
+import Duckling.Numeral.Helpers (double)
 import Duckling.Numeral.Types (NumeralData (..))
 import Duckling.Regex.Types
 import Duckling.Types
 import qualified Duckling.Numeral.Types as TNumeral
-import Duckling.Number.Helpers (double)
 
 ruleNumeralMap :: HashMap Text Integer
 ruleNumeralMap = HashMap.fromList
