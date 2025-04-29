@@ -144,20 +144,6 @@ ruleCompositeTens = Rule
       _ -> Nothing
   }
 
-  ruleDecimals :: Rule
-  { name = "decimal numbers (egész form)"
-  , pattern =
-      [ numberBetween 0 100
-      , regex "egész"
-      , numberBetween 0 100
-      ]
-  , prod = \case
-      (Token Number l1:_:Token Number l2:_) ->
-        let v = toDouble l1 + (toDouble l2 / 10)
-        in Just $ number v
-      _ -> Nothing
-  }
-
 rules :: [Rule]
 rules =
   [ ruleNumeral
