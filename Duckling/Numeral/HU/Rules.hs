@@ -8,8 +8,6 @@
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoRebindableSyntax #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE LambdaCase #-}
 
 module Duckling.Numeral.HU.Rules
   ( rules
@@ -156,7 +154,7 @@ ruleDecimalWithUpTo3Digits = Rule
       , optional (numberBetween 0 10)
       , optional (numberBetween 0 10)
       ]
-  , prod = \case
+  , prod = \tokens -> case tokens of
        (Token (Numeral intPart) : _ : Token (Numeral d1) : rest) ->
         let digits = d1 : [n | Token (Numeral n) <- rest]
             decimal = concatMap (show . floor . TNumeral.value) digits
