@@ -156,10 +156,10 @@ ruleDecimalWithUpTo3Digits = Rule
       ]
   , prod = \tokens -> case tokens of
       (Token Numeral intPart : _ : Token Numeral d1 : rest) ->
-        let digits = d1 : [t | Token Number t <- rest]
+        let digits = d1 : [t | Token Numeral t <- rest]
             decimal = concatMap (show . floor . TNumeral.value) digits
             full = show (floor (TNumeral.value intPart)) ++ "." ++ decimal
-        in Just . Token Number $ number (read full)
+        in Just . Token Numeral $ number (read full)
       _ -> Nothing
   }
 
