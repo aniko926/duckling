@@ -154,7 +154,7 @@ ruleDecimalWithUpTo3Digits = Rule
       , optional (numberBetween 0 10)
       , optional (numberBetween 0 10)
       ]
-  , prod = \case
+  , prod = \tokens -> case tokens of
       (Token Number intPart : _ : Token Number d1 : rest) ->
         let digits = d1 : [t | Token Number t <- rest]
             decimal = concatMap (show . floor . value) digits
